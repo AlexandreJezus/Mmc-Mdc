@@ -15,6 +15,14 @@ process.stdin.on("data", function (data) {
       let b = numeros[1];
       let originalB = b;
 
+      // Calcular MDC usando o algoritmo de Euclides
+      while (b !== 0) {
+        let temp = b;
+        b = a % b;
+        a = temp;
+      }
+      const mdc = a;
+
       // Calcular MMC
       const mmc = Math.abs(numeros[0] * numeros[1]) / mdc;
 
