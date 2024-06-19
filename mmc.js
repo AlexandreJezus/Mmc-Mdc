@@ -1,24 +1,37 @@
-console.log("Digite dois numeros, começe digitando o primeiro: ");
+console.log("Digite dois números, começando pelo primeiro:");
+
+let numeros = [];
 
 process.stdin.on("data", function (data) {
   let numero = Number(data.toString().trim());
-
-  let numero2 = Number(data.toString().trim());
-
-  if (isNaN(numero) || isNaN(numero2)) {
-    console.log("Por Favor digite um numero valido");
+  
+  if (isNaN(numero)) {
+    console.log("Por favor, digite um número válido.");
   } else {
-    let a = numero;
-    let b = numero2;
+    numeros.push(numero);
+    
+    if (numeros.length === 2) {
+      let a = numeros[0];
+      let b = numeros[1];
+      let originalB = b;
 
-    while (b !== 0) {
-      let temp = b;
-      b = a % b;
-      b = temp;
+      // Calcular MDC usando o algoritmo de Euclides
+      while (b !== 0) {
+        let temp = b;
+        b = a % b;
+        a = temp;
+      }
+      const mdc = a;
+
+      // Calcular MMC
+      const mmc = Math.abs(numeros[0] * numeros[1]) / mdc;
+
+      console.log(`MDC: ${mdc}`);
+      console.log(`MMC: ${mmc}`);
+
+      process.exit();
+    } else {
+      console.log("Digite o segundo número:");
     }
-    const mdc = b;
-
-    const mmc = Math.abs(numero * numero2) / mdc;
-    console.log(mmc);
   }
 });
